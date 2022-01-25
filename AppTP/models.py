@@ -7,11 +7,14 @@ class Cliente(models.Model):
     dni = models.IntegerField()
     email = models.EmailField()
     
-class proveedor(models.Model):
+    def _str_(self):
+        return f"Cliente {Cliente.nombre} {Cliente.apellido} {Cliente.email}"
+    
+class Proveedor(models.Model):
     nombre = models.CharField(max_length=50)
     cuil = models.IntegerField()
     
-class producto(models.Model):
+class Producto(models.Model):
     nombre = models.CharField(max_length=30)
     marca = models.CharField(max_length=30)
     codigo = models.IntegerField()
