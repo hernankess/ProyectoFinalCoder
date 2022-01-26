@@ -18,7 +18,7 @@ def clientes(request):
   
 def productos(request):
     
-      return render(request, "AppTP/productos.html")
+      return render(request, "AppTP/productos.html", {"producto": Producto.objects.all()})
   
 def proveedores(request):
     
@@ -47,12 +47,13 @@ def buscar(request):
     
     if request.GET["codigo"]:
         codigo = request.GET["codigo"]
-        nombre = Producto.objects.filter(codigo=codigo)
-        marca = Producto.objects.filter(codigo=codigo)
-        precio = Producto.objects.filter(codigo=codigo)
-        cantidad = Producto.objects.filter(codigo=codigo)
+        producto = Producto.objects.filter(codigo=codigo)
+        # nombre = Producto.objects.filter(codigo=codigo)
+        # marca = Producto.objects.filter(codigo=codigo)
+        # precio = Producto.objects.filter(codigo=codigo)
+        # cantidad = Producto.objects.filter(codigo=codigo)
         
-        return render(request, "AppTP/resultadobusqueda.html", {"nombre":nombre, "marca":marca, "cantidad":cantidad, "precio":precio})
+        return render(request, "AppTP/buscar.html", {"codigo":codigo, "producto":producto})
     
     else:
         

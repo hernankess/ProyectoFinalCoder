@@ -7,12 +7,14 @@
     <title>Busqueda de producto</title>
 </head>
 <body>
-    
-    {% if codigo %}
+  
+    <p>Estamos buscando el producto: {{codigo}}</p>
+
+    {% if producto %}
 
     <ul>
-        {% for c in codigo %}
-            <li>{{ c }}</li>
+        {% for producto in producto %}
+            <li>{{ producto.nombre }} {{ producto.marca }} El precio es: ${{producto.precio}} y tenemos en stock: {{producto.cantidad}}</li>
         {% endfor %}
 
     </ul>
