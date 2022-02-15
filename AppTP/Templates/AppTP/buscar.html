@@ -1,4 +1,47 @@
-<!DOCTYPE html>
+{% extends "AppTP/padre.html" %}
+
+{% load static%}
+
+{% block titulo %}
+
+Formulario - Busqueda de producto
+
+{% endblock %}
+
+{% block link %}
+
+<nav class="navbar navbar-light bg-light static-top">
+    <div class="container">
+        <a class="btn btn-primary" href={% url "Inicio" %} >Volver a Inicio</a>
+    </div>
+</nav>
+
+{% endblock %}
+
+{% block contenidoquecambia %}
+
+<p><h1>Estamos buscando el producto: {{codigo}}</p></h1>
+
+    {% if producto %}
+
+    <ul>
+        {% for producto in producto %}
+            <li>{{ producto.nombre }} {{ producto.marca }} El precio es: ${{producto.precio}} y tenemos en stock: {{producto.cantidad}}</li>
+        {% endfor %}
+
+    </ul>
+
+    {% endif %}
+
+{% endblock %}
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -26,4 +69,4 @@
     
 
 </body>
-</html>
+</html> -->

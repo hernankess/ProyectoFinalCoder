@@ -8,9 +8,33 @@ Productos
 
 {% endblock %}
 
+{% block link %}
+
+<nav class="navbar navbar-light bg-light static-top">
+    <div class="container">
+        <a class="btn btn-primary" href={% url "Inicio" %} >Volver a Inicio</a>
+    </div>
+</nav>
+
+{% endblock %}
 
 {% block contenidoquecambia %}
 
-<h1> Proyecto Final CODER </h1>
+<h1> Los productos disponibiles son: </h1>
+
+{% for p in producto %}
+{{ p.nombre }} {{p.marca }} Codigo del producto : {{ p.codigo }} el precio unitario es de ${{ p.precio }} tenemos en stock :{{ p.cantidad}} unidades
+    <a href="{% url 'Producto_delete' p.id %}">Eliminar</a>
+    <a href="{% url 'Producto_update' p.id %}">Editar</a>
+<br>
+{% endfor %}
+
+<a class="btn btn-primary" href={% url "Formulario_carga_producto" %} >Cargar un Producto</a>
+
+{% endblock %}
+
+{% block boton %}
+
+<a class="btn btn-primary" href={% url "Busquedaproducto" %} >Buscar un Producto</a>
 
 {% endblock %}

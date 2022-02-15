@@ -4,7 +4,7 @@
 
 {% block titulo %}
 
-Formulario - Agregar Clientes
+Formulario - Agregar Producto
 
 {% endblock %}
 
@@ -20,17 +20,17 @@ Formulario - Agregar Clientes
 
 {% block contenidoquecambia %}
 
-<h1>Formulario - Agregar Clientes</h1>
+<h1>Formulario - Agregar Producto</h1>
     
-    {% if formulario_cliente.errors %}
-        <p style="color: red;"> {{ formulario_cliente.errors}} </p>
+    {% if formulario_carga_producto.errors %}
+        <p style="color: red;"> {{ formulario_carga_producto.errors}} </p>
     {% endif %}
 
     <form action="" method="POST"> {% csrf_token %}
 
         <table>
             
-            {{ formulario_cliente }}
+            {{ formulario_carga_producto }}
 
         </table>
 

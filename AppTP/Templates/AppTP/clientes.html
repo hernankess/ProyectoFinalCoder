@@ -23,7 +23,10 @@ Clientes
 <h1> Los clientes cargados son: </h1>
 
     {% for cliente in Cliente %}
-        {{ cliente.nombre }} {{cliente.apellido }} - DNI: {{ cliente.dni }}
+        {{ cliente }}
         <br>
     {% endfor %}
+
+<a class="btn btn-primary" href={% url "Formulario_clientes" %} >cargar un cliente</a>
+
 {% endblock %}

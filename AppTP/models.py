@@ -7,12 +7,16 @@ class Cliente(models.Model):
     dni = models.IntegerField()
     email = models.EmailField()
     
-    def _str_(self):
-        return f"Cliente {Cliente.nombre} {Cliente.apellido} {Cliente.email}"
+    def __str__(self):
+        return f"Cliente {self.nombre} {self.apellido} DNI: {self.dni}"
     
 class Proveedor(models.Model):
     nombre = models.CharField(max_length=50)
     cuil = models.IntegerField()
+    provincia = models.CharField(max_length=30)
+    
+    def __str__(self):
+            return f"Proveedor {self.nombre} {self.cuil} {self.provincia}"
     
 class Producto(models.Model):
     nombre = models.CharField(max_length=30)
@@ -20,3 +24,6 @@ class Producto(models.Model):
     codigo = models.IntegerField()
     precio = models.FloatField()
     cantidad = models.IntegerField()
+    
+    def __str__(self):
+        return f"Producto {self.nombre} {self.marca} {self.codigo} {self.precio} {self.cantidad}"
