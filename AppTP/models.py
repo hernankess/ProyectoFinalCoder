@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import ForeignKey, CASCADE, Model, ImageField
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Cliente(models.Model):
@@ -27,3 +29,7 @@ class Producto(models.Model):
     
     def __str__(self):
         return f"Producto {self.nombre} {self.marca} {self.codigo} {self.precio} {self.cantidad}"
+    
+class Avatar(Model):
+    user = ForeignKey(User, on_delete=CASCADE)
+    imagen = ImageField(upload_to="avatares", null=True, blank=True)

@@ -5,7 +5,6 @@ from .models import *
 
 
 admin.site.register(Cliente)
-
 admin.site.register(Proveedor)
-
 admin.site.register(Producto)
+admin.site.register(Avatar)

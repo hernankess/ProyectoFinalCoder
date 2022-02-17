@@ -33,6 +33,12 @@
                 <a class="navbar-brand" href={% url "Clientes" %}>Clientes</a>
                 <a class="navbar-brand" href={% url "Proveedores" %}>Proveedores</a>
                 <a class="navbar-brand" href={% url "Productos" %}>Productos</a>
+                {% if not request.user.is_authenticated %}
+                <a class="btn btn-primary" href="{% url 'Login' %}">Iniciar Sesión</a>
+                {% else %}
+                <a class="btn btn-primary" href="{% url 'Logout' %}">Logout</a>
+                <p class="text-muted small mb-4 mb-lg-0">Hola, {{user.username}}</p>
+                {% endif %}
                 {% block link %}
                 {% endblock %}
             </div>

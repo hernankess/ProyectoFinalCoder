@@ -4,7 +4,7 @@
 
 {% block titulo %}
 
-Formulario - Buscar Producto
+Formulario
 
 {% endblock %}
 
@@ -20,14 +20,22 @@ Formulario - Buscar Producto
 
 {% block contenidoquecambia %}
 
-<h1>Formulario - Buscar un producto. </h1>
-Introducir código del producto
+<h1>Formulario</h1>
     
-<form action= '{% url "Buscar" %}'  method="GET">
-    <input type="number" name="codigo">
+    {% if form.errors %}
+        <p style="color: red;"> {{ form.errors}} </p>
+    {% endif %}
 
-    <input type="submit" value="buscar">
+    <form action="" method="POST"> {% csrf_token %}
 
-</form>
+        <table>
+            
+            {{ form.as_table }}
+
+        </table>
+
+        <input type="submit" value="Enviar">
+
+    </form>
 
 {% endblock %}

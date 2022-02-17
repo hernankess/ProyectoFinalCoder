@@ -4,7 +4,7 @@
 
 {% block titulo %}
 
-Formulario - Buscar Producto
+Ver Cliente
 
 {% endblock %}
 
@@ -20,14 +20,15 @@ Formulario - Buscar Producto
 
 {% block contenidoquecambia %}
 
-<h1>Formulario - Buscar un producto. </h1>
-Introducir código del producto
+<h1>Ver Cliente</h1>
     
-<form action= '{% url "Buscar" %}'  method="GET">
-    <input type="number" name="codigo">
+<ul>
 
-    <input type="submit" value="buscar">
+    <li>Nombre: {{cliente.nombre}} </li>
+    <li>Cuil: {{cliente.apellido}}</li>
+    <li>Provincia: {{cliente.dni}}</li>
+    <li>Provincia: {{cliente.email}}</li>
 
-</form>
+</ul>
 
 {% endblock %}

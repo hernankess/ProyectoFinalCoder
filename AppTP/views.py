@@ -10,21 +10,27 @@ from AppTP.models import Producto, Proveedor, Cliente
 from AppTP.forms import ProductosForm, ClientesForm, CargaproductosForm
 from AppTP.forms import ProductosForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
 def inicio(request):
     
       return render(request, "AppTP/inicio.html")
-  
+
+@login_required  
 def clientes(request):
     
       return render(request, "AppTP/clientes.html", {"Cliente": Cliente.objects.all()})
-  
+
+@login_required  
 def productos(request):
     
       return render(request, "AppTP/productos.html", {"producto": Producto.objects.all()})
-  
+
+@login_required  
 def proveedores(request):
     
       return render(request, "AppTP/proveedores.html", {"proveedor": Proveedor.objects.all()})
@@ -122,30 +128,87 @@ def producto_update (request, id_producto):
 
 
 
-class ProveedoresListView(ListView):
+class ProveedoresListView(LoginRequiredMixin, ListView):
       model = Proveedor
       template_name = "AppTP/proveedores.html"
       context_object_name = "proveedor"
       
-class ProveedoresDetailView(DetailView):
+class ProveedoresDetailView(LoginRequiredMixin, DetailView):
       model = Proveedor
       template_name = "AppTP/ver_proveedor.html"
       
       
-class ProveedoresCreateView(CreateView):
+class ProveedoresCreateView(LoginRequiredMixin, CreateView):
       model = Proveedor 
       success_url = reverse_lazy("Proveedores")
       fields = ["cuil", "nombre", "provincia"]
       template_name = "AppTP/proveedores_form.html"
 
 
-class ProveedoresUpdateView(UpdateView):
+class ProveedoresUpdateView(LoginRequiredMixin, UpdateView):
       model = Proveedor 
       success_url = reverse_lazy("Proveedores")
       fields = ["cuil", "nombre", "provincia"]
       template_name = "AppTP/proveedores_form.html"
 
-class ProveedoresDeleteView(DeleteView):
+class ProveedoresDeleteView(LoginRequiredMixin, DeleteView):
       model = Proveedor
       success_url = reverse_lazy("Proveedores")
       template_name = "AppTP/proveedor_delete.html"
+      
+class ProveedoresListView(LoginRequiredMixin, ListView):
+      model = Proveedor
+      template_name = "AppTP/proveedores.html"
+      context_object_name = "proveedor"
+      
+class ProveedoresDetailView(LoginRequiredMixin, DetailView):
+      model = Proveedor
+      template_name = "AppTP/ver_proveedor.html"
+      
+      
+class ProveedoresCreateView(LoginRequiredMixin, CreateView):
+      model = Proveedor 
+      success_url = reverse_lazy("Proveedores")
+      fields = ["cuil", "nombre", "provincia"]
+      template_name = "AppTP/proveedores_form.html"
+
+
+class ProveedoresUpdateView(LoginRequiredMixin, UpdateView):
+      model = Proveedor 
+      success_url = reverse_lazy("Proveedores")
+      fields = ["cuil", "nombre", "provincia"]
+      template_name = "AppTP/proveedores_form.html"
+
+class ProveedoresDeleteView(LoginRequiredMixin, DeleteView):
+      model = Proveedor
+      success_url = reverse_lazy("Proveedores")
+      template_name = "AppTP/proveedor_delete.html"
+      
+      
+class ClientesDetailView(LoginRequiredMixin, DetailView):
+      model = Cliente
+      template_name = "AppTP/ver_cliente.html"
+      
+      
+class ClientesCreateView(LoginRequiredMixin, CreateView):
+      model = Cliente 
+      success_url = reverse_lazy("Clientes")
+      fields = ["nombre", "apellido", "dni", "email"]
+      template_name = "AppTP/clientes_form.html"
+
+
+class ClientesUpdateView(LoginRequiredMixin, UpdateView):
+      model = Cliente 
+      success_url = reverse_lazy("Clientes")
+      fields = ["nombre", "apellido", "dni", "email"]
+      template_name = "AppTP/clientes_form.html"
+
+class ClientesDeleteView(LoginRequiredMixin, DeleteView):
+      model = Cliente
+      success_url = reverse_lazy("Clientes")
+      template_name = "AppTP/cliente_delete.html"
+      
+class ClientesListView(LoginRequiredMixin, ListView):
+      model = Cliente
+      template_name = "AppTP/clientes.html"
+      context_object_name = "cliente"

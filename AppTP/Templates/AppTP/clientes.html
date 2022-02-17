@@ -24,6 +24,10 @@ Clientes
 
     {% for cliente in Cliente %}
         {{ cliente }}
+        <a href="{% url 'Cliente_detail' cliente.id %}">Ver Detalle</a>
+        <a href="{% url 'Cliente_update' cliente.id %}">Editar</a>
+        <a href="{% url 'Cliente_delete' cliente.id %}">Eliminar</a>
+
         <br>
     {% endfor %}
 
