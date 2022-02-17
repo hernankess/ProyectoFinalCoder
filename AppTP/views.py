@@ -13,13 +13,24 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
+from AppTP.models import Avatar
+
 
 # Create your views here.
 
 def inicio(request):
     
-      return render(request, "AppTP/inicio.html")
-
+      if request.user.is_authenticated:
+            avatares = Avatar.objects.filter(user=request.user)
+            if avatares:
+                  avatar_url = avatares.last().imagen.url
+            else:
+                  avatar_url = ""
+    
+            return render(request, "AppTP/inicio.html", {"avatar_url" : avatar_url})
+      else:
+            return render(request, "AppTP/inicio.html")
+            
 @login_required  
 def clientes(request):
     
