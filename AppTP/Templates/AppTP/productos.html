@@ -20,10 +20,13 @@ Productos
 
 {% block contenidoquecambia %}
 
+<img src='https://staminamarketing.com/blog/wp-content/uploads/2020/06/tipos-de-productos-woocommerce.jpg'>
+ 
+
 <h1> Los productos disponibiles son: </h1>
 
 {% for p in producto %}
-{{ p.nombre }} {{p.marca }} Codigo del producto : {{ p.codigo }} el precio unitario es de ${{ p.precio }} tenemos en stock :{{ p.cantidad}} unidades
+{{ p.nombre }} {{p.marca }} Codigo del producto : {{ p.codigo }} el precio unitario es de ${{ p.precio }} tenemos en stock :{{ p.cantidad}} unidades. Fecha de carga del producto:  {{p.fecha_alta}}
     <a href="{% url 'Producto_delete' p.id %}">Eliminar</a>
     <a href="{% url 'Producto_update' p.id %}">Editar</a>
 <br>
@@ -36,5 +39,7 @@ Productos
 {% block boton %}
 
 <a class="btn btn-primary" href={% url "Busquedaproducto" %} >Buscar un Producto</a>
+
+
 
 {% endblock %}

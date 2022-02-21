@@ -4,6 +4,8 @@ from AppTP import views
 from AppTP.views import buscar, busquedaproducto
 from django.contrib.auth.decorators import login_required
 
+from AppTP.views import agregar_avatar
+
 urlpatterns = [
     path('', views.inicio, name="Inicio"),
     path('clientes', views.clientes, name="Clientes"),
@@ -23,4 +25,5 @@ urlpatterns = [
     path("cliente/add", views.ClientesCreateView.as_view(), name = "Cliente_add"),
     path("cliente/update/<pk>", views.ClientesUpdateView.as_view(), name = "Cliente_update"),
     path("cliente/delete/<pk>", views.ClientesDeleteView.as_view(), name = "Cliente_delete"),
+    path("user/avatar/add", agregar_avatar, name="Avatar_add"),
     ]

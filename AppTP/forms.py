@@ -1,4 +1,4 @@
-from django.forms import FloatField, Form, CharField, IntegerField, EmailField
+from django.forms import FloatField, Form, CharField, ImageField, IntegerField, EmailField
 
 class ProductosForm(Form):
     Nombre = CharField()
@@ -21,3 +21,6 @@ class Cargaproveedores(Form):
     nombre = CharField(max_length=50)
     cuil = IntegerField()
     provincia = CharField(max_length=30)
+    
+class AvatarFormulario(Form):
+    imagen = ImageField(required = True)

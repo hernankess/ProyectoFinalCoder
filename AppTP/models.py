@@ -1,6 +1,9 @@
 from django.db import models
 from django.db.models import ForeignKey, CASCADE, Model, ImageField
 from django.contrib.auth.models import User
+from datetime import datetime
+
+from django.forms import CharField, DateField
 
 # Create your models here.
 class Cliente(models.Model):
@@ -26,9 +29,10 @@ class Producto(models.Model):
     codigo = models.IntegerField()
     precio = models.FloatField()
     cantidad = models.IntegerField()
+    fecha_alta = models.CharField(max_length=100, null=True, blank=True, default=datetime.now())
     
     def __str__(self):
-        return f"Producto {self.nombre} {self.marca} {self.codigo} {self.precio} {self.cantidad}"
+        return f"Producto {self.nombre} {self.marca} {self.codigo} {self.precio} {self.cantidad}, El producto se cargó el día {self.fecha_vencimiento}"
     
 class Avatar(Model):
     user = ForeignKey(User, on_delete=CASCADE)

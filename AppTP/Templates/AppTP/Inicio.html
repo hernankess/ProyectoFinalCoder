@@ -8,6 +8,18 @@ Titulo
 
 {% endblock %}
 
+{% block link %}
+
+{% if request.user.is_authenticated %}
+<nav class="navbar navbar-light bg-light static-top">
+    <div class="container">
+        <a class="navbar-brand" href={% url "User_editar" %} >Editar Usuario</a>
+        <a class="navbar-brand" href={% url "Avatar_add" %} >Crear Avatar</a>
+    </div>
+</nav>
+{% endif %}
+
+{% endblock %}
 
 {% block contenidoquecambia %}
 

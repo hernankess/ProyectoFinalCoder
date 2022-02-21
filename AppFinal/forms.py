@@ -1,7 +1,7 @@
 from email import charset
 from tkinter.tix import Form
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.forms import EmailField, CharField, PasswordInput
+from django.forms import EmailField, CharField, ImageField, PasswordInput
 from django.contrib.auth.models import User
 
 class UserRegisterForm(UserCreationForm):

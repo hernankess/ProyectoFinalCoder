@@ -10,11 +10,12 @@ from AppTP.models import Producto, Proveedor, Cliente
 from AppTP.forms import ProductosForm, ClientesForm, CargaproductosForm
 from AppTP.forms import ProductosForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 
 from AppTP.models import Avatar
-
+from AppTP.forms import AvatarFormulario
+from django.http import HttpResponseForbidden
 
 # Create your views here.
 
@@ -33,13 +34,25 @@ def inicio(request):
             
 @login_required  
 def clientes(request):
+
+      avatares = Avatar.objects.filter(user=request.user)
+      if avatares:
+            avatar_url = avatares.last().imagen.url
+      else:
+            avatar_url = ""
     
-      return render(request, "AppTP/clientes.html", {"Cliente": Cliente.objects.all()})
+      return render(request, "AppTP/clientes.html", {"avatar_url" : avatar_url, "Cliente": Cliente.objects.all()})
 
 @login_required  
 def productos(request):
     
-      return render(request, "AppTP/productos.html", {"producto": Producto.objects.all()})
+      avatares = Avatar.objects.filter(user=request.user)
+      if avatares:
+            avatar_url = avatares.last().imagen.url
+      else:
+            avatar_url = ""
+            
+      return render(request, "AppTP/productos.html", {"avatar_url" : avatar_url, "producto": Producto.objects.all()})
 
 @login_required  
 def proveedores(request):
@@ -129,6 +142,7 @@ def producto_update (request, id_producto):
                   producto.codigo=data["codigo"]
                   producto.precio=data["precio"] 
                   producto.cantidad=data["cantidad"]
+                  producto.fecha_alta=data["fecha_alta"]
                   producto.save()
                   
                   return redirect("Productos")
@@ -213,13 +227,43 @@ class ClientesUpdateView(LoginRequiredMixin, UpdateView):
       success_url = reverse_lazy("Clientes")
       fields = ["nombre", "apellido", "dni", "email"]
       template_name = "AppTP/clientes_form.html"
+      
+      def get (self, request, **kwargs):
+            
+            if not self.request.user.has_perm("AppTP.update_cliente"):
+                  return HttpResponseForbidden()
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
 
 class ClientesDeleteView(LoginRequiredMixin, DeleteView):
       model = Cliente
       success_url = reverse_lazy("Clientes")
       template_name = "AppTP/cliente_delete.html"
       
+      def get (self, request, **kwargs):
+            
+            if not self.request.user.has_perm("AppTP.delete_cliente"):
+                  return HttpResponseForbidden()
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
+      
 class ClientesListView(LoginRequiredMixin, ListView):
       model = Cliente
       template_name = "AppTP/clientes.html"
       context_object_name = "cliente"
+      
+@login_required
+def agregar_avatar(request):
+      if request.method == "POST":
+            formulario = AvatarFormulario(request.POST, request.FILES)
+            
+            if formulario.is_valid():
+                  avatar = Avatar(user=request.user, imagen=formulario.cleaned_data["imagen"])
+                  avatar.save()
+                  return redirect ("Inicio")
+      else:
+            formulario = AvatarFormulario()
+            
+      return render (request, "AppTP/crear_avatar.html", {"form":formulario})
